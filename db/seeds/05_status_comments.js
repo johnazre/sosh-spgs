@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('status_comments').insert([
-        { id: 1, colName: 'rowValue1' },
-        { id: 2, colName: 'rowValue2' },
-        { id: 3, colName: 'rowValue3' }
+        { author_id: 1, status_id: 1, content: 'hello world 1' },
+        { author_id: 2, status_id: 1, content: 'hello world 2' },
+        { author_id: 3, status_id: 1, content: 'hello world 3' }
       ])
     })
 }

@@ -31,9 +31,9 @@ module.exports = {
 
   // Friend request handlers
   requestFriend(req, res) {
-    let { sent_by, recieved_by } = req.body
+    let { sent_by, recieved_from } = req.params
     knex('friend_requests')
-      .insert({ sent_by, recieved_by }, '*')
+      .insert({ sent_by, recieved_from }, '*')
       .then(newFriendRequest => res.json(newFriendRequest))
   },
   approveFriendRequst(req, res) {

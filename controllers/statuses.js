@@ -32,14 +32,14 @@ module.exports = {
     })
   },
   addOne(req, res) {
-    const { author_id, content, created_at } = req.body
+    const { author_id, content } = req.body
     knex('statuses')
-      .insert({ author_id, content, created_at })
+      .insert({ author_id, content })
       .then(newStatus => res.json(newStatus))
   },
   deleteOne(req, res) {
     knex('statuses')
-      .where('author_id', req.params.user_id)
+      .where('id', req.params.status_id)
       .del()
       .returning('*')
       .then(removedStatus => res.json(removedStatus))
