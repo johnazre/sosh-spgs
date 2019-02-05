@@ -1,13 +1,14 @@
 const knex = require('../db/knex')
 
 function getFriendsByUserId(userId) {
+  console.log('userId', userId)
   return knex('friend_requests')
     .where('approved', true)
     .andWhere('sent_by', userId)
-    .orWhere('received_by', userId)
+    .orWhere('received_from', userId)
     .then(friendsArr => {
       return friendsArr.map(friend =>
-        friend.sent_by == userId ? friend.received_by : friend.sent_by
+        friend.sent_by == userId ? friend.received_from : friend.sent_by
       )
     })
 }
@@ -19,7 +20,7 @@ module.exports = {
       .then(userStatuses => res.json(userStatuses))
   },
   getAllFriendStatuses(req, res) {
-    getFriendsByUserId(10).then(result => {
+    getFriendsByUserId(req.params.user_id).then(result => {
       const arrOfFriendStatusQueries = result.map(friendId =>
         knex('statuses').where('author_id', friendId)
       )

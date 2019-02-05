@@ -5,7 +5,10 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('friend_requests').insert([
-        { sent_by: 7, received_from: 10, approved: true },
+        { sent_by: 1, received_from: 10, approved: true },
+        { sent_by: 1, received_from: 4, approved: true },
+        { sent_by: 1, received_from: 3, approved: true },
+        { sent_by: 1, received_from: 5, approved: true },
         { sent_by: 4, received_from: 9 },
         { sent_by: 3, received_from: 5 },
         { sent_by: 6, received_from: 3 },

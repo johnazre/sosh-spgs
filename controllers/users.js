@@ -36,7 +36,7 @@ module.exports = {
       .insert({ sent_by, recieved_from }, '*')
       .then(newFriendRequest => res.json(newFriendRequest))
   },
-  approveFriendRequst(req, res) {
+  approveFriendRequest(req, res) {
     knex('friend_requests')
       .where('id', req.params.request_id)
       .update({ approved: true }, '*')

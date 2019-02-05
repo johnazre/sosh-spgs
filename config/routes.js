@@ -22,7 +22,8 @@ router.delete('/users/:id', users.deleteOne)
 
 /* Friend Requests */
 router.post('/friend-request/:from_user/:to_user', users.requestFriend)
-router.delete('/friend-request/:from_user/:to_user', users.removeFriendRequest)
+router.patch('/friend-request/approve/:request_id', users.approveFriendRequest)
+router.patch('/friend-request/reject/:request_id', users.removeFriendRequest)
 
 /* Status Routes */
 router.get('/statuses/:user_id', statuses.getAllByUserId)
