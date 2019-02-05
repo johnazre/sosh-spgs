@@ -1,7 +1,6 @@
 const knex = require('../db/knex')
 
 function getFriendsByUserId(userId) {
-  console.log('userId', userId)
   return knex('friend_requests')
     .where('approved', true)
     .andWhere('sent_by', userId)
@@ -20,9 +19,14 @@ module.exports = {
       .then(userStatuses => res.json(userStatuses))
   },
   getAllFriendStatuses(req, res) {
+    console.log('req.params', req.params)
     getFriendsByUserId(req.params.user_id).then(result => {
       const arrOfFriendStatusQueries = result.map(friendId =>
-        knex('statuses').where('author_id', friendId)
+        knex
+          .select('statuses.*', 'users.name', 'users.profilePhotoURL')
+          .from('statuses')
+          .where('author_id', friendId)
+          .innerJoin('users', 'statuses.author_id', 'users.id')
       )
       Promise.all(arrOfFriendStatusQueries).then(arrsOfFriendStatuses => {
         let allStatusesSorted = arrsOfFriendStatuses
